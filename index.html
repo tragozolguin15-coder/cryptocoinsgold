@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CriptoCoins | Plataforma Web Financiera</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,17 +12,9 @@
                 extend: {
                     colors: {
                         crypto: {
-                            bg: '#0B0E14',
-                            card: '#151A23',
-                            border: '#232A36',
-                            accent: '#10B981',
-                            cyan: '#06B6D4',
-                            hover: '#059669',
-                            darkText: '#9CA3AF'
+                            bg: '#0B0E14', card: '#151A23', border: '#232A36',
+                            accent: '#10B981', cyan: '#06B6D4', darkText: '#9CA3AF'
                         }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif']
                     }
                 }
             }
@@ -34,217 +25,154 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0B0E14; color: #F3F4F6; }
         .glass { background: rgba(21, 26, 35, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glow-accent { box-shadow: 0 0 20px rgba(16, 185, 129, 0.25); }
-        .glow-cyan { box-shadow: 0 0 20px rgba(6, 182, 212, 0.25); }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0B0E14; }
-        ::-webkit-scrollbar-thumb { background: #232A36; border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-emerald-500 selection:text-black">
+<body class="min-h-screen flex flex-col justify-between">
 
-    <!-- Top Navigation Bar -->
     <nav class="glass sticky top-0 z-50 border-b border-crypto-border px-4 py-3 sm:px-8">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center font-bold text-black text-xl shadow-lg glow-accent">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center font-bold text-black text-xl">
                     <i class="fa-solid fa-coins"></i>
                 </div>
                 <div>
-                    <span class="text-xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-cyan-400 to-indigo-400">CRIPTOCOINS</span>
-                    <span class="text-xs text-crypto-darkText block -mt-1 font-mono">Portal de Usuario v2.5</span>
+                    <span class="text-xl font-bold tracking-wider text-emerald-400">CRIPTOCOINS</span>
+                    <span class="text-xs text-crypto-darkText block -mt-1">Portal Oficial Web</span>
                 </div>
             </div>
-
             <div id="userInfoHeader" class="hidden flex items-center gap-3 border-l border-crypto-border pl-3">
                 <div class="text-right hidden sm:block">
                     <p id="navUsername" class="text-sm font-semibold text-emerald-400">Usuario</p>
                     <p id="navBalance" class="text-xs text-crypto-darkText font-mono">$0.00 MXN</p>
                 </div>
-                <button onclick="logout()" class="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 transition" title="Cerrar Sesión">
+                <button onclick="logout()" class="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Toast Container -->
     <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
 
-    <!-- MAIN CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
 
-        <!-- ================= PANTALLA DE AUTH (LOGIN / REGISTRO) ================= -->
+        <!-- AUTH SECTION -->
         <section id="authView" class="max-w-md mx-auto my-12">
-            <div class="glass rounded-2xl p-6 sm:p-8 shadow-2xl border border-crypto-border relative overflow-hidden">
+            <div class="glass rounded-2xl p-6 sm:p-8 shadow-2xl border border-crypto-border">
                 <div class="flex rounded-xl bg-crypto-bg p-1 border border-crypto-border mb-6">
-                    <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg text-sm font-semibold transition bg-crypto-card text-emerald-400 shadow">Iniciar Sesión</button>
-                    <button id="tabRegBtn" onclick="switchAuthTab('register')" class="flex-1 py-2 rounded-lg text-sm font-semibold text-crypto-darkText hover:text-white transition">Crear Cuenta</button>
+                    <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 py-2 rounded-lg text-sm font-semibold transition bg-crypto-card text-emerald-400">Iniciar Sesión</button>
+                    <button id="tabRegBtn" onclick="switchAuthTab('register')" class="flex-1 py-2 rounded-lg text-sm font-semibold text-crypto-darkText">Crear Cuenta</button>
                 </div>
 
-                <!-- Form Login -->
                 <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Nombre de Usuario</label>
-                        <input type="text" id="loginUser" required placeholder="Ej. CriptoCoins00028" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-emerald-500 transition">
+                        <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Usuario</label>
+                        <input type="text" id="loginUser" required placeholder="CriptoCoins00001" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:border-emerald-500">
                     </div>
                     <div>
                         <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Contraseña</label>
-                        <input type="password" id="loginPass" required placeholder="••••••••••••" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-emerald-500 transition">
+                        <input type="password" id="loginPass" required placeholder="••••••••" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:border-emerald-500">
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-black font-bold py-3 rounded-xl transition glow-accent text-sm mt-2">
+                    <button type="submit" class="w-full bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-3 rounded-xl transition text-sm">
                         Ingresar a mi Cuenta
                     </button>
                 </form>
 
-                <!-- Form Registro -->
                 <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4 hidden">
                     <div>
                         <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Nombre Completo</label>
-                        <input type="text" id="regName" required placeholder="Ej. Roberto Gómez" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-cyan-500 transition">
+                        <input type="text" id="regName" required placeholder="Roberto Gómez" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:border-cyan-500">
                     </div>
                     <div>
-                        <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Correo Electrónico</label>
-                        <input type="email" id="regEmail" placeholder="usuario@correo.com" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-cyan-500 transition">
+                        <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Correo</label>
+                        <input type="email" id="regEmail" placeholder="correo@mail.com" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:border-cyan-500">
                     </div>
                     <div>
                         <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Contraseña (Mín. 10 Caracteres)</label>
-                        <input type="password" id="regPass" minlength="10" required placeholder="••••••••••••" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:outline-none focus:border-cyan-500 transition">
+                        <input type="password" id="regPass" minlength="10" required placeholder="••••••••" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:border-cyan-500">
                     </div>
                     <div>
                         <label class="block text-xs text-crypto-darkText mb-1 uppercase font-semibold">Cantidad Inicial (MXN)</label>
-                        <input type="number" id="regAmount" min="100" step="100" required placeholder="1000.00" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm font-mono focus:outline-none focus:border-cyan-500 transition">
+                        <input type="number" id="regAmount" min="100" step="100" required placeholder="1000" class="w-full bg-crypto-bg border border-crypto-border rounded-xl py-2.5 px-3 text-sm focus:border-cyan-500">
                     </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl transition glow-cyan text-sm mt-2">
-                        Solicitar Alta de Cuenta (Avisa al Bot)
+                    <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-3 rounded-xl transition text-sm">
+                        Crear Cuenta y Enviar Alerta al Bot
                     </button>
                 </form>
             </div>
         </section>
 
-        <!-- ================= DASHBOARD USUARIO ================= -->
+        <!-- DASHBOARD SECTION -->
         <section id="userDashboard" class="hidden space-y-6">
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="glass p-5 rounded-2xl border border-crypto-border">
-                    <span class="text-xs text-crypto-darkText uppercase font-semibold tracking-wider">Saldo Disponible</span>
+                    <span class="text-xs text-crypto-darkText uppercase font-semibold">Saldo Disponible</span>
                     <h3 id="dashBalance" class="text-3xl font-bold text-emerald-400 mt-1 font-mono">$0.00 MXN</h3>
                 </div>
                 <div class="glass p-5 rounded-2xl border border-crypto-border">
-                    <span class="text-xs text-crypto-darkText uppercase font-semibold tracking-wider">Capital Inicial</span>
+                    <span class="text-xs text-crypto-darkText uppercase font-semibold">Capital Inicial</span>
                     <h3 id="dashInitial" class="text-3xl font-bold text-cyan-400 mt-1 font-mono">$0.00 MXN</h3>
                 </div>
                 <div class="glass p-5 rounded-2xl border border-crypto-border">
-                    <span class="text-xs text-crypto-darkText uppercase font-semibold tracking-wider">Estado de Cuenta</span>
+                    <span class="text-xs text-crypto-darkText uppercase font-semibold">Estado</span>
                     <h3 id="dashStatus" class="text-2xl font-bold text-white mt-1 capitalize">Activo</h3>
                 </div>
             </div>
 
-            <!-- Notificación de Edición / Aceptación de Cambios (/altaedit) -->
-            <div id="userApprovalNotice" class="hidden glass p-6 rounded-2xl border border-yellow-500/40 bg-yellow-500/5 space-y-4">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-triangle-exclamation text-yellow-400 text-2xl"></i>
-                    <div>
-                        <h4 class="font-bold text-yellow-400 text-base">Actualización de Datos Propuesta por el Administrador</h4>
-                        <p class="text-xs text-slate-300">Revisa los cambios realizados en tu cuenta y acepta o rechaza:</p>
-                    </div>
-                </div>
-                <div id="approvalDataBox" class="bg-crypto-bg p-4 rounded-xl text-xs font-mono border border-crypto-border space-y-1"></div>
-                <div class="flex gap-3">
-                    <button onclick="respondAdminEdit(true)" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-black font-bold py-2 rounded-xl text-xs transition">
-                        <i class="fa-solid fa-check mr-1"></i> Aceptar
-                    </button>
-                    <button onclick="respondAdminEdit(false)" class="flex-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 font-bold py-2 rounded-xl text-xs transition">
-                        <i class="fa-solid fa-xmark mr-1"></i> Rechazar
-                    </button>
-                </div>
-            </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Tabla Movimientos -->
-                <div class="lg:col-span-2 glass rounded-2xl p-5 border border-crypto-border flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="font-bold text-lg flex items-center gap-2">
-                                <i class="fa-solid fa-chart-line text-emerald-400"></i> Movimientos Operativos Cripto
-                            </h3>
-                            <input type="date" id="filterDate" onchange="loadUserMovements()" class="bg-crypto-bg text-xs border border-crypto-border rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-emerald-500">
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs">
-                                <thead>
-                                    <tr class="border-b border-crypto-border text-crypto-darkText uppercase">
-                                        <th class="py-2.5 px-2">Hora</th>
-                                        <th class="py-2.5 px-2">Operación</th>
-                                        <th class="py-2.5 px-2">Cripto</th>
-                                        <th class="py-2.5 px-2">Tramo</th>
-                                        <th class="py-2.5 px-2">% Rend.</th>
-                                        <th class="py-2.5 px-2">Ganancia</th>
-                                        <th class="py-2.5 px-2">Saldo Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="movementsTableBody" class="divide-y divide-crypto-border/50 font-mono"></tbody>
-                            </table>
-                        </div>
+                <div class="lg:col-span-2 glass rounded-2xl p-5 border border-crypto-border">
+                    <h3 class="font-bold text-lg mb-4 text-emerald-400"><i class="fa-solid fa-chart-line"></i> Historial Operativo</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-crypto-border text-crypto-darkText uppercase">
+                                    <th class="py-2.5 px-2">Operación</th>
+                                    <th class="py-2.5 px-2">Monto</th>
+                                    <th class="py-2.5 px-2">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="movementsTableBody" class="divide-y divide-crypto-border/50 font-mono">
+                                <tr><td colspan="3" class="py-3 px-2 text-center text-crypto-darkText">Sin movimientos recientes</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <!-- Chat & Retiros -->
                 <div class="space-y-6">
                     <div class="glass rounded-2xl p-5 border border-crypto-border">
-                        <h3 class="font-bold text-md mb-3 flex items-center gap-2 text-cyan-400">
-                            <i class="fa-solid fa-money-bill-transfer"></i> Solicitar Retiro
-                        </h3>
-                        <button onclick="requestWithdrawal()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-2.5 rounded-xl transition text-xs flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-paper-plane"></i> Enviar Solicitud de Retiro (Avisa al Bot)
+                        <h3 class="font-bold text-md mb-3 text-cyan-400"><i class="fa-solid fa-money-bill-transfer"></i> Retiros</h3>
+                        <button onclick="requestWithdrawal()" class="w-full bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-2.5 rounded-xl text-xs">
+                            Solicitar Retiro (Avisa al Admin)
                         </button>
                     </div>
 
                     <div class="glass rounded-2xl p-5 border border-crypto-border flex flex-col h-80">
-                        <h3 class="font-bold text-md mb-2 flex items-center gap-2 text-emerald-400">
-                            <i class="fa-solid fa-comments"></i> Asistente Virtual / Chat en Vivo
-                        </h3>
+                        <h3 class="font-bold text-md mb-2 text-emerald-400"><i class="fa-solid fa-comments"></i> Asistente Virtual</h3>
                         <div id="userChatBox" class="flex-grow bg-crypto-bg rounded-xl p-3 border border-crypto-border overflow-y-auto space-y-2 text-xs">
-                            <div class="bg-crypto-card border border-crypto-border p-2.5 rounded-xl max-w-[85%] text-slate-300">
-                                Hola, soy tu Asistente Virtual. Tus mensajes se envían directamente al administrador en Telegram.
-                            </div>
+                            <div class="bg-crypto-card border border-crypto-border p-2.5 rounded-xl text-slate-300">Hola, tus mensajes van directos al Telegram del Administrador.</div>
                         </div>
                         <div class="flex gap-2 mt-3">
-                            <input type="text" id="userChatInput" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter') sendUserChatMessage()" class="flex-grow bg-crypto-bg border border-crypto-border rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-emerald-500">
-                            <button onclick="sendUserChatMessage()" class="bg-emerald-500 text-black px-3 py-2 rounded-xl text-xs font-bold hover:bg-emerald-600 transition">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
+                            <input type="text" id="userChatInput" placeholder="Escribe un mensaje..." onkeypress="if(event.key==='Enter') sendUserChatMessage()" class="flex-grow bg-crypto-bg border border-crypto-border rounded-xl px-3 py-2 text-xs">
+                            <button onclick="sendUserChatMessage()" class="bg-emerald-500 text-black px-3 py-2 rounded-xl text-xs font-bold"><i class="fa-solid fa-paper-plane"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <footer class="glass border-t border-crypto-border py-4 px-6 text-center text-xs text-crypto-darkText">
-        <p>© 2026 CriptoCoins Inc. Plataforma Web sincronizada con Bot de Telegram.</p>
+        <p>© 2026 CriptoCoins Inc. Conectado al Bot Real de Telegram.</p>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        let dbUsers = JSON.parse(localStorage.getItem("cripto_users")) || [
-            { username: "CriptoCoins00028", passwordHash: "1234567890", nombre: "Carlos Mendoza", correo: "carlos@gmail.com", balance: 14500.50, initialAmount: 10000.00, status: "activo", bankName: "BBVA", accountNumber: "12345678" }
-        ];
-        let supportMessages = JSON.parse(localStorage.getItem("cripto_support")) || [];
-        let pendingEdits = JSON.parse(localStorage.getItem("cripto_pending_edits")) || {};
+        const API_URL = "http://localhost:5000/api";
         let currentUser = null;
 
-        function saveDB() {
-            localStorage.setItem("cripto_users", JSON.stringify(dbUsers));
-            localStorage.setItem("cripto_support", JSON.stringify(supportMessages));
-            localStorage.setItem("cripto_pending_edits", JSON.stringify(pendingEdits));
-        }
-
-        function showToast(msg, type = 'info') {
+        function showToast(msg, type = 'success') {
             const container = document.getElementById("toastContainer");
             const toast = document.createElement("div");
-            toast.className = `p-3 rounded-xl glass border text-xs shadow-lg transition pointer-events-auto ${type==='success'?'border-emerald-500 text-emerald-400':'border-cyan-500 text-cyan-400'}`;
+            toast.className = `p-3 rounded-xl glass border text-xs shadow-lg ${type==='success'?'border-emerald-500 text-emerald-400':'border-red-500 text-red-400'}`;
             toast.innerHTML = `<i class="fa-solid fa-bell mr-2"></i> ${msg}`;
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 4000);
@@ -254,64 +182,49 @@
             if (tab === 'login') {
                 document.getElementById("loginForm").classList.remove("hidden");
                 document.getElementById("registerForm").classList.add("hidden");
-                document.getElementById("tabLoginBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold transition bg-crypto-card text-emerald-400 shadow";
-                document.getElementById("tabRegBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold text-crypto-darkText hover:text-white transition";
+                document.getElementById("tabLoginBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold transition bg-crypto-card text-emerald-400";
+                document.getElementById("tabRegBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold text-crypto-darkText";
             } else {
                 document.getElementById("loginForm").classList.add("hidden");
                 document.getElementById("registerForm").classList.remove("hidden");
-                document.getElementById("tabRegBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold transition bg-crypto-card text-cyan-400 shadow";
-                document.getElementById("tabLoginBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold text-crypto-darkText hover:text-white transition";
+                document.getElementById("tabRegBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold transition bg-crypto-card text-cyan-400";
+                document.getElementById("tabLoginBtn").className = "flex-1 py-2 rounded-lg text-sm font-semibold text-crypto-darkText";
             }
         }
 
-        function handleLogin(e) {
+        async function handleLogin(e) {
             e.preventDefault();
-            const u = document.getElementById("loginUser").value.trim();
-            const p = document.getElementById("loginPass").value.trim();
-            const found = dbUsers.find(x => x.username.toLowerCase() === u.toLowerCase() && x.passwordHash === p);
-            if (!found) {
-                showToast("Usuario o contraseña incorrectos", "error");
-                return;
-            }
-            if (found.status === 'inactivo') {
-                showToast("Tu cuenta está dada de baja o pendiente de autorización por el Administrador.", "error");
-                return;
-            }
-            currentUser = found;
-            initDashboard();
+            const username = document.getElementById("loginUser").value.trim();
+            const password = document.getElementById("loginPass").value.trim();
+            try {
+                const res = await fetch(`${API_URL}/login`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+                if (!data.success) { showToast(data.message, "error"); return; }
+                currentUser = data.user;
+                initDashboard();
+            } catch (err) { showToast("No se pudo conectar con el servidor del bot", "error"); }
         }
 
-        function handleRegister(e) {
+        async function handleRegister(e) {
             e.preventDefault();
-            const name = document.getElementById("regName").value.trim();
-            const email = document.getElementById("regEmail").value.trim();
-            const pass = document.getElementById("regPass").value.trim();
-            const amount = parseFloat(document.getElementById("regAmount").value);
-
-            const nextId = String(dbUsers.length + 1).padStart(5, '0');
-            const newUsername = `CriptoCoins${nextId}`;
-
-            const newUser = {
-                username: newUsername,
-                passwordHash: pass,
-                nombre: name,
-                correo: email,
-                balance: amount,
-                initialAmount: amount,
-                status: "pendiente",
-                bankName: "",
-                accountNumber: ""
-            };
-
-            dbUsers.push(newUser);
-            saveDB();
-
-            // SIMULACIÓN DE ALERTA AL BOT DE TELEGRAM DEL ADMIN
-            console.log(`[BOT TELEGRAM ALERT] 🆕 Nueva cuenta creada: ${newUsername} (${name}) por $${amount} MXN. Requiere /alta o /baja.`);
-            showToast(`¡Cuenta creada! Tu usuario es ${newUsername}. Alerta enviada al Bot del Admin.`, "success");
-            
-            currentUser = newUser;
-            initDashboard();
+            const nombre = document.getElementById("regName").value.trim();
+            const correo = document.getElementById("regEmail").value.trim();
+            const password = document.getElementById("regPass").value.trim();
+            const initial_amount = parseFloat(document.getElementById("regAmount").value);
+            try {
+                const res = await fetch(`${API_URL}/register`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ nombre, correo, password, initial_amount })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(`¡Cuenta creada! Tu usuario es ${data.username}. Alerta enviada al Bot del Admin.`);
+                    switchAuthTab('login');
+                } else { showToast("Error al registrar cuenta", "error"); }
+            } catch (err) { showToast("No se pudo conectar con el servidor", "error"); }
         }
 
         function initDashboard() {
@@ -320,106 +233,36 @@
             document.getElementById("userInfoHeader").classList.remove("hidden");
             document.getElementById("navUsername").innerText = currentUser.username;
             document.getElementById("navBalance").innerText = `$${currentUser.balance.toLocaleString()} MXN`;
-
             document.getElementById("dashBalance").innerText = `$${currentUser.balance.toLocaleString()} MXN`;
             document.getElementById("dashInitial").innerText = `$${currentUser.initialAmount.toLocaleString()} MXN`;
             document.getElementById("dashStatus").innerText = currentUser.status;
-
-            document.getElementById("filterDate").value = new Date().toISOString().split('T')[0];
-            loadUserMovements();
-            checkUserApprovalNotice();
-            loadUserChat();
         }
 
-        function checkUserApprovalNotice() {
-            const noticeBox = document.getElementById("userApprovalNotice");
-            const dataBox = document.getElementById("approvalDataBox");
-            const pending = pendingEdits[currentUser.username];
-
-            if (pending) {
-                noticeBox.classList.remove("hidden");
-                dataBox.innerHTML = `
-                    • Nombre: ${pending.nombre}<br>
-                    • Correo: ${pending.correo}<br>
-                    • Saldo: $${pending.balance} MXN<br>
-                    • Banco: ${pending.bankName}
-                `;
-            } else {
-                noticeBox.classList.add("hidden");
-            }
+        async function requestWithdrawal() {
+            try {
+                await fetch(`${API_URL}/withdraw`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: currentUser.username })
+                });
+                showToast("Solicitud de retiro enviada al Administrador.");
+            } catch (err) { showToast("Error al solicitar retiro", "error"); }
         }
 
-        function respondAdminEdit(accepted) {
-            const noticeBox = document.getElementById("userApprovalNotice");
-            if (accepted) {
-                const pending = pendingEdits[currentUser.username];
-                Object.assign(currentUser, pending);
-                delete pendingEdits[currentUser.username];
-                currentUser.status = 'activo';
-                saveDB();
-                showToast("¡Has aceptado los cambios! Cuenta dada de alta.", "success");
-                console.log(`[BOT TELEGRAM ALERT] El usuario ${currentUser.username} aceptó los cambios mediante /altaedit.`);
-            } else {
-                delete pendingEdits[currentUser.username];
-                saveDB();
-                showToast("Has rechazado los cambios. Se notificó al Administrador.", "error");
-                console.log(`[BOT TELEGRAM ALERT] El usuario ${currentUser.username} rechazó los cambios.`);
-            }
-            noticeBox.classList.add("hidden");
-            initDashboard();
-        }
-
-        function loadUserMovements() {
-            const tbody = document.getElementById("movementsTableBody");
-            tbody.innerHTML = `
-                <tr>
-                    <td class="py-3 px-2">12:30:15</td>
-                    <td class="py-3 px-2 text-emerald-400">Staking Diario</td>
-                    <td class="py-3 px-2">BTC</td>
-                    <td class="py-3 px-2">$${currentUser.initialAmount.toLocaleString()}</td>
-                    <td class="py-3 px-2 text-emerald-400">+50.0%</td>
-                    <td class="py-3 px-2 text-emerald-400">+$${(currentUser.initialAmount * 0.5).toLocaleString()}</td>
-                    <td class="py-3 px-2 font-bold">$${currentUser.balance.toLocaleString()}</td>
-                </tr>
-            `;
-        }
-
-        function requestWithdrawal() {
-            showToast("Solicitud de retiro enviada. Se notificó al Administrador en Telegram.", "success");
-            console.log(`[BOT TELEGRAM ALERT] 💸 Solicitud de retiro del usuario ${currentUser.username} por saldo $${currentUser.balance}`);
-        }
-
-        function loadUserChat() {
-            const box = document.getElementById("userChatBox");
-            const myMsgs = supportMessages.filter(m => m.username === currentUser.username);
-            let html = `<div class="bg-crypto-card border border-crypto-border p-2.5 rounded-xl max-w-[85%] text-slate-300">Hola, soy tu Asistente Virtual.</div>`;
-            myMsgs.forEach(m => {
-                html += `<div class="p-2.5 rounded-xl max-w-[85%] ${m.sender==='user'?'ml-auto bg-emerald-500/20 text-emerald-300 border border-emerald-500/30':'bg-crypto-card text-slate-300'}">${m.message}</div>`;
-            });
-            box.innerHTML = html;
-            box.scrollTop = box.scrollHeight;
-        }
-
-        function sendUserChatMessage() {
+        async function sendUserChatMessage() {
             const input = document.getElementById("userChatInput");
-            const text = input.value.trim();
-            if(!text) return;
-
-            supportMessages.push({ username: currentUser.username, message: text, sender: 'user', time: new Date().toISOString() });
-            saveDB();
-            input.value = "";
-            loadUserChat();
-
-            console.log(`[BOT TELEGRAM ALERT] 💬 Mensaje de ${currentUser.username} al Asistente: "${text}"`);
-            showToast("Mensaje enviado al Administrador", "success");
-
-            // Simulación de respuesta automática en tiempo real del admin de prueba
-            setTimeout(() => {
-                supportMessages.push({ username: currentUser.username, message: "Administrador (Telegram): He recibido tu mensaje, te atenderemos enseguida.", sender: 'admin', time: new Date().toISOString() });
-                saveDB();
-                loadUserChat();
-                showToast("El Administrador te ha enviado un mensaje", "info");
-            }, 3000);
+            const message = input.value.trim();
+            if (!message) return;
+            try {
+                await fetch(`${API_URL}/chat`, {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: currentUser.username, message })
+                });
+                const box = document.getElementById("userChatBox");
+                box.innerHTML += `<div class="p-2 rounded-xl ml-auto bg-emerald-500/20 text-emerald-300">${message}</div>`;
+                input.value = "";
+                box.scrollTop = box.scrollHeight;
+                showToast("Mensaje enviado al Admin.");
+            } catch (err) { showToast("Error al enviar mensaje", "error"); }
         }
 
         function logout() {
@@ -429,14 +272,6 @@
             document.getElementById("authView").classList.remove("hidden");
             showToast("Sesión finalizada", "info");
         }
-
-        // Simulación periódica en tiempo real por si el Admin manda promo o altaedit desde Telegram
-        setInterval(() => {
-            if(currentUser) {
-                checkUserApprovalNotice();
-                loadUserChat();
-            }
-        }, 3000);
     </script>
 </body>
 </html>
